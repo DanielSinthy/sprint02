@@ -1,10 +1,18 @@
-const port = 3000,
-    express = require("express"),
-    app = express();
+const express = require('express');
+const bodyParser = require('body-parser');
+const authRoutes = require('./routes/authRoutes'); 
+const app = express();
+const port = 3000;
 
-app.get("/", (req, res) => {
-    res.send("Hello, Universe!");
-})
-    .listen(port, () => {
-        console.log(`The Express.js server has started and is listening on port number: ${port}`);
-    });
+app.use(bodyParser.json());
+
+
+app.use(authRoutes);
+
+app.get('/', (req, res) => {
+  res.send('Welcome to the Personal Budget Tracker App!');
+});
+
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
